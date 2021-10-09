@@ -87,9 +87,7 @@ _________________________________________________________________
 
 
 
-####BaseLine网络训练结果
-
-
+### BaseLine网络训练结果
 
 ![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/baseline.png)
 
