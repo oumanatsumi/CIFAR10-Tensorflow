@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2a0d53c-bbaf-49f9-80da-857bc422006f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/alexnet8.py" beforeDir="false" afterPath="$PROJECT_DIR$/3_alexnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/baseline.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_baseline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.data-00000-of-00001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.index" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checkpoint/checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/checkpoint" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/CIFAR10.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/CIFAR10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inception10.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lenet5.py" beforeDir="false" afterPath="$PROJECT_DIR$/2_lenet5.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resnet18.py" beforeDir="false" afterPath="$PROJECT_DIR$/5_resnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/4_vggnet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weights.txt" beforeDir="false" afterPath="$PROJECT_DIR$/weights.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,8 +19,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="FIRST">
-              <first_editor relative-caret-position="330">
-                <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+              <first_editor relative-caret-position="-1132">
+                <caret line="455" selection-start-line="455" selection-end-line="455" />
               </first_editor>
               <second_editor />
             </state>
@@ -70,7 +56,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="560" />
@@ -247,7 +233,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14605543" />
@@ -347,8 +333,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="FIRST">
-          <first_editor relative-caret-position="330">
-            <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
+          <first_editor relative-caret-position="-1132">
+            <caret line="455" selection-start-line="455" selection-end-line="455" />
           </first_editor>
           <second_editor />
         </state>

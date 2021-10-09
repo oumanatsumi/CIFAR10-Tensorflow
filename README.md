@@ -8,16 +8,16 @@ classification task on dataset-CIFAR10,by using Tensorflow/keras
 目录
 =================
 
-   * [CIFAR10简介](##CIFAR10简介)
-   * [所需环境](##所需环境)
-   * [BaseLine网络](##BaseLine网络)
-   * [LeNet-5网络](##LeNet-5网络模型)
-   * [AlexNet网络](##AlexNet网络模型)   
-   * [VGGNet网络](##VGGNet网络模型)
-   * [ResNet网络](##ResNet网络模型)
-   * [实现过程](##实现过程)
-   * [超参数研究](##超参数研究)
-   * [更新日志与作者](##更新日志与作者)
+   * [CIFAR10简介](#CIFAR10简介)
+   * [所需环境](#所需环境)
+   * [BaseLine网络](#BaseLine网络)
+   * [LeNet-5网络](#LeNet-5网络模型)
+   * [AlexNet网络](#AlexNet网络模型)   
+   * [VGGNet网络](#VGGNet网络模型)
+   * [ResNet网络](#ResNet网络模型)
+   * [实现过程](#实现过程)
+   * [超参数研究](#超参数研究)
+   * [更新日志与作者](#更新日志与作者)
 
 
 
@@ -26,9 +26,8 @@ classification task on dataset-CIFAR10,by using Tensorflow/keras
 
 该数据集共有60000张彩色图像，这些图像是32*32，分为10个类，每类6000张图。这里面有50000张用于训练，构成了5个训练批，每一批10000张图；另外10000用于测试，单独构成一批。测试批的数据里，取自10类中的每一类，每一类随机取1000张。抽剩下的就随机排列组成了训练批。注意一个训练批中的各类图像并不一定数量相同，总的来看训练批，每一类都有5000张图。
 下面这幅图就是列举了10各类，每一类展示了随机的10张图片：
-<div align="center">
-  <img src="images/CIFAR10.png"/>
-</div>
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/CIFAR10.png)
 
 需要说明的是，这10类都是各自独立的，不会出现重叠。
 
@@ -86,9 +85,13 @@ Non-trainable params: 12
 _________________________________________________________________
 ``` 
 
+
+
 ###BaseLine网络训练结果
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/baseline.png)
 
 ## LeNet-5网络模型
 
@@ -97,10 +100,12 @@ LeNet-5：是Yann LeCun在1998年设计的用于手写数字识别的卷积神�
 
 LenNet-5共有7层（不包括输入层），有2个卷积层、2个下抽样层（池化层）、3个全连接层3种连接方式,如下图所示。
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/LeNet-5%20model.png)
+
 
 
 ### LeNet-5网络结构
+
 
 ```
 Model: "le_net5"
@@ -129,13 +134,17 @@ Non-trainable params: 0
 _________________________________________________________________
 ```
 
+
 ###LeNet-5网络训练结果
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/lenet.png)
+
 
 
 
 ###论文来源 
+
 
 LeCun, Yann, et al. “Gradient-based learning applied to document recognition.” Proceedings of the IEEE 86.11 (1998): 2278-2324.
 
@@ -160,9 +169,14 @@ AlexNet将LeNet的思想发扬光大，把CNN的基本原理应用到了很深�
 
 （6）数据增强，随机地从256*256的原始图像中截取224*224大小的区域（以及水平翻转的镜像），相当于增加了2*(256-224)^2=2048倍的数据量。如果没有数据增强，仅靠原始的数据量，参数众多的CNN会陷入过拟合中，使用了数据增强后可以大大减轻过拟合，提升泛化能力。进行预测时，则是取图片的四个角加中间共5个位置，并进行左右翻转，一共获得10张图片，对他们进行预测并对10次结果求均值。同时，AlexNet论文中提到了会对图像的RGB数据进行PCA处理，并对主成分做一个标准差为0.1的高斯扰动，增加一些噪声，这个Trick可以让错误率再下降1%。
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/AlexNet%20model.png)
+
+
+
 
 ### AlexNet网络结构
+
+
 
 ```
 Model: "alex_net8"
@@ -211,11 +225,19 @@ Non-trainable params: 704
 _________________________________________________________________
 ```
 
+
+
 ###AlexNet网络训练结果
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/alexnet.png)
+
+
 
 ###论文来源 
+
+
 
 Technicolor T , Related S , Technicolor T , et al. ImageNet Classification with Deep Convolutional Neural Networks.
 
@@ -230,7 +252,13 @@ VGG的作者在论文中将它称为是Very Deep Convolutional Network，如上�
 
 VGG16不仅结构清晰，层参数也很简单。所有的卷积层都采用3x3的卷积核，步长为1；所有池化层都是2x2池化，步长为2。正因为此，我们看到图片尺寸变化规律，从224x224到112x112等，直到最后变成7x7。同时我们注意到特征图通道的数量也一直在加倍，从64到128最终变成512层。因此VGG16结构图画出来非常美观，实现起来也很规整。
 
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/VGGNet%20model.png)
+
+
+
+
 ### VGGNet网络结构
+
 
 ```
 Model: "vgg16"
@@ -353,11 +381,19 @@ Non-trainable params: 8,448
 _________________________________________________________________
 ```
 
+
+
 ###VGGNet网络训练结果
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/vggnet.png)
+
+
 
 ### 论文来源
+
+
 
 Simonyan K ,  Zisserman A . Very Deep Convolutional Networks for Large-Scale Image Recognition[J]. Computer Science, 2014.
 
@@ -370,9 +406,13 @@ ResNet(Residual Neural Network)网络作者想到了常规计算机视觉领域�
 
 ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。
 
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/ResNet%20model.png)
+
 
 
 ### ResNet网络结构
+
+
 
 
 ```
@@ -400,12 +440,19 @@ _________________________________________________________________
 
 ```
 
+
+
 ###ResNet网络训练结果
 
-![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+![Image text](https://raw.githubusercontent.com/oumanatsumi/CIFAR10-Tensorflow/main/images/resnet.png)
+
 
 
 ### 论文来源
+
+
 
 He K , Zhang X , Ren S , et al. Deep Residual Learning for Image Recognition[J]. IEEE, 2016.
 
