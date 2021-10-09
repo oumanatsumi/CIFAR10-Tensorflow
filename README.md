@@ -8,19 +8,17 @@ classification task on dataset-CIFAR10,by using Tensorflow/keras
 目录
 =================
 
-   * [CIFAR10简介](#CIFAR10简介)
-   * [Installation](#installation)
-   * [Running Single-Image Tasks](#running-single-image-tasks)
-        * [Storing Representations](#storing-representations)
-        * [Storing Predictions](#storing-predictions)
-   * [Running Multi-Image Tasks](#running-multi-image-tasks)
-   * [Training Data Statistics](#training-data-statistics)
-   * [Citing](#citing)
+   * [CIFAR10简介](##CIFAR10简介)
+   * [所需环境](##所需环境)
+   * [BaseLine网络](##BaseLine网络)
+   * [LeNet-5网络](##LeNet-5网络模型)
+   * [AlexNet网络](##AlexNet网络模型)   
+   * [VGGNet网络](##VGGNet网络模型)
+   * [ResNet网络](##ResNet网络模型)
+   * [实现过程](##实现过程)
+   * [超参数研究](##超参数研究)
+   * [更新日志与作者](##更新日志与作者)
 
-
-<div align="center">
-  <img src="assets/web_assets/task_dict_v.jpg" />
-</div>
 
 
 ## CIFAR10简介
@@ -37,237 +35,423 @@ classification task on dataset-CIFAR10,by using Tensorflow/keras
  [CIFAR10数据集官网](https://www.cs.toronto.edu/~kriz/cifar.html) 
  
  
-
-
-```
-Autoencoder             Curvatures          Colorization             Denoising-Autoencoder 
-Depth                   Edge-2D             Edge-3D                  Euclidean-Distance 
-Inpainting              Jigsaw-Puzzle       Keypoint-2D              Keypoint-3D 
-Object-Classification   Reshading           Room-Layout              Scene-Classification 
-Segmentation-2D         Segmentation-3D     Segmentation-Semantic    Surface-Normal       
-Vanishing-Point
-```
-
-The multi-image tasks:
-
-```
-Pairwise-Nonfixated-Camera-Pose Pairwise-Fixated-Camera-Pose
-Triplet-Fixated-Camera-Pose     Point-Matching
-``` 
-<div align="center">
-  <img src="assets/web_assets/figure.png" />
-</div>
-
-### Network Architecture
-
-As shown in the figure above, each task shares the same encoder architecture. The encoder maps the input image (256x256) into a representation of size 2048 (16x16x8). Hence the encoder architecture and representation size of all tasks are identical. The encoder is modified based on [ResNet-50](https://arxiv.org/pdf/1512.03385.pdf) by: 1. replacing `conv5_1`'s stride 2 convolution with stride 1 convolution. 2. No global average pooling. 
-
-Also, we trained all of the networks on **the same exact set of input images**, i.e. the pixels seen in the input by all networks are identical and the only difference is in the output space. 
-
-Since the tasks in our dictionary can have different dimensionalities in their output, we have a varying decoder architecture accordingly. We tried to keep the decoder structure compact and varying as little as possible. Also, slighlty different kind of loss could be employed for different tasks accordingly. See the table below for the complete information.
-
-<div align="center">
-  <img src="assets/web_assets/decoder_loss.png"  />
-</div>
-
-
-
-## Installation
-
-| UPDATE (2019): Pretrained models now also available in PyTorch [HERE](https://github.com/alexsax/midlevel-reps/blob/master/README.md#installing-visualpriors).|
-|------------------------------------------------------------------------|
-
-Keep reading below for instructions on how to use TensorFlow to get the taskbank networks up and running.
-
-### Step 1: Clone the Code from Github
-
-```
-git clone https://github.com/StanfordVL/taskonomy.git
-cd taskonomy/taskbank
-```
-
-
-
-
-### Step 2: Install Requirements
-
-**Python**: see [`requirement.txt`](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/requirement.txt) for complete list of used packages. We recommend doing a clean installation of requirements using virtualenv:
-```bash
-conda create -n testenv python=3.4
-source activate testenv
-pip install -r requirement.txt 
-```
-
-If you dont want to do the above clean installation via virtualenv, you could also directly install the requirements through:
-```bash
-pip install -r requirement.txt --no-index
-```
-
-**Tensorflow**: Note that you need [Tensorflow](https://www.tensorflow.org/install/). We used Version 1.5. If you use the above virtualenv, Tensorflow will be automatically installed therein. 
-
-
-## Running Single-Image Tasks
-
-While in `taskonomy/taskbank` folder:
-
-#### Step 1: Download Pretrained Networks
-
-```
-sh tools/download_model.sh
-```
-
-#### Step 2: Run Demo Script
-
-To run the pretrained model of a task on a specific image, do:
-```bash
-python tools/run_img_task.py --task $TASK --img $PATH_TO_INPUT --store $WHERE_TO_STORE
-```
-
-For the `--task` flag which specifies the task being run on the query image, find the task name in [Task Name Dictionary](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/tools/task_dict.txt). For example, according to the dictionary:
-```
-Surface-Normal : rgb2sfnorm
-```
-
-Then, we can run the script on our [example image](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/test.png) as such:
-
-```bash
-python tools/run_img_task.py --task rgb2sfnorm --img assets/test.png --store assets/test_sf.png
-```
-
-<div align="center">
-  <img src="assets/test.png" width="288px" />
-  <p>Example Test Image</p>
-</div>
-
-Which will give us image [`test_sf.png`](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/web_assets/test_sf.png):
-<div align="center">
-  <img src="assets/web_assets/test_sf.png" width="288px" />
-  <p>Surface Normal Estimation on the Test Image</p>
-</div>
-
-Similarly, non pixel-to-pixel tasks which produce lower dimensional (e.g. vanishing points) or classification (e.g. scene classification) outputs uses the same script. For example:
-```
-Scene-Classification : class_places
-```
-Again, we can run the script on our example image using:
-
-```bash
-python tools/run_img_task.py --task class_places --img assets/test.png --store assets/test_scene_class.png
-```
-
-Which will give us image [`test_scene_class.png`](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/test_places.png):
-<div align="center">
-  <img src="assets/web_assets/test_scene_class.png" width="288px" />
-  <p>Scene Classification on Test Image </p>
-</div>
-
-Similarly, running `vanishing_point`, `curvature`, `reshade`, `rgb2mist`, `segment25d` on [`test.png`](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/test.png)returns the following results:
-
-<div align="center">
-  <img src="assets/web_assets/sample_outputs.png" />
-</div>
-
-### Storing Representations
-The flag `--store-rep` enables saving the representation of the image prduced by task's encoder. Add `--store-rep` to the command and the representation will be stored at `${WHERE_TO_STORE}.npy`. For example, running:
-```bash
-python tools/run_img_task.py --task class_places --img assets/test.png --store assets/test_scene_class.png --store-rep
-```
-will store the representation of `test.png` by the scene classification task encoder at `assets/test_scene_class.npy`.
-
-### Storing Predictions
-To save the numerical prediction of the network, e.g. coordiantes of the predicted vanishing points besides its png visualization, use the flag `--store-pred`. Add `--store-pred` to the command and the prediction will be stored at `${WHERE_TO_STORE}_pred.npy`. For example, running:
-```bash
-python tools/run_img_task.py --task class_places --img assets/test.png --store assets/test_scene_class.png --store-pred
-```
-will store predicted scene classes at `assets/test_scene_class.npy`.
-
-## Running Multi-Image Tasks
-
-Running tasks with multiple images in their input is pretty similar to the same process for single image tasks.
-
-#### Step 1: Download Pretrained Networks
-
-```
-sh tools/download_model_multi.sh
-```
-
-#### Step 2: Run Demo Script
-
-To run a pretrained multi-image model on specific images (in case of Triplet-Fixated-Camera-Pose, `--img` should be `$IMG1,$IMG2,$IMG3` since the task requires 3 images in input. See [task definitions](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/web_assets/task_definitions.pdf)), do:
-```bash
-python tools/run_multi_img_task.py --task $TASK --img $IMG1,$IMG2 --store $WHERE_TO_STORE
-```
-Similarly for the `--task` flag, find the task name in [Task Name Dictionary](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/tools/task_dict.txt). For example, according to the dictionary:
-```
-Pairwise-Nonfixated-Camera-Pose : non_fixated_pose
-```
-
-Then, we can run the script on our [example image 1](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/test.png) and [example image 2](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/test_1.png) as such:
-
-```bash
-python tools/run_multi_img_task.py --task non_fixated_pose --img assets/test_1.png,assets/test.png --store assets/test_pose.png
-```
-
-<div align="center">
-  <img src="assets/web_assets/sbs.png" width="650px" />
-  <p>Camera Pose Estimation - Input Images (left: test_1.png, right:test.png)</p>
-</div>
-
-The script will give us [`assets/web_assets/test_pose.png`](https://github.com/StanfordVL/taskonomy/blob/master/taskbank/assets/web_assets/test_scene_class.png):
-<div align="center">
-  <img src="assets/web_assets/test_pose.png" width="288px" />
-  <p>Camera Pose Estimation (green represents `test.png` 's camera. Red represents `test_1.png` 's.)</p>
-</div>
-
-Note: camera pose is calculate with reference to the second image (here that is `test.png`). 
-
-The `--store-rep` and `--store-pred` flags work the same way as in singe-image tasks (described above).
-
-**Point-Matching**: note that the task point matching returns if the center pixels of input images correspond to the same physical point or not (i.e. if they make a "point correspondence") as either 0 (non-matching) or 1 (matching). No visualization is generated for this task and `--store` is used with flags `--store-rep` and `--store-pred` to determine where to save the representation and predicction. See an example below:  
-
-```bash
-python tools/run_multi_img_task.py --task point_match --img assets/test_1.png,assets/test.png --store assets/point_match_results --store-rep --store-pred
-```
-
-## Evaluation: How good are these networks?
-For a complete discussion on the evaluation of the networks, please see the [paper](http://taskonomy.vision/). Overall, the shared networks are often on par or better than per-task customized state-of-the-art. For instnace, we compared our depth estimator network vs. the released models of [Laina2016](https://github.com/iro-cp/FCRN-DepthPrediction) (as of now state-of-the-art on NYU dataset) resulting in 88% `win-rate` for task bank's network on a hold-out test set (after all proper normalizations and whitenings to count for dataset distribution changes across datasets; supported by qualitative results). 
-
-To give an overall idea about the quality of the bank, the table below shows the proportion (%) of a hold-out test set on which the networks in the task bank were able to beat average estimator (`avg`), i.e. the best statistically informed guess, and a network trained on random nonlinear projections (Gaussian representation - `rand`). The numbers denote the good quality of the networks, statistically. Qualititave results run frame-by-frame on a YouTube video can be examined [here](https://taskonomy.vision/#models).  
-
-<div align="center">
-  <img src="assets/web_assets/losses.png" width="500px"  />
-</div>
-
-
-## Training Data Statistics
-
-The dataset consists of **3.99 million images** from **2265 different buildings**. The images are from **indoor scenes**. Images with people visible were exluded and we didn't include camera roll (pitch and yaw included). Below are some statistics about the images which comprise the training dataset. If your query images severly deviate from these statistics, the performance is expected to degrade. You can see a sample subset of the training dataset [here](http://github.com/alexsax/taskonomy-sample-model-1). 
-
-| Property | Mean | Distribution |
-|----|---|----|
-| **Camera Pitch** | -0.77° | ![Distribution of camera pitches](assets/web_assets/elevations.png) | 
-| **Camera Roll** | 0.0° | ![Distribution of camera roll](assets/web_assets/rolls.png)  | 
-| **Camera Field of view** | 75° | *Constant*  |
-| **Distance**  (from camera to scene content)| 5.5m | ![Distribution of distances from camera to point](assets/web_assets/distances_to_point.png)  |
-| **3D Obliqueness of Scene Content** (wrt camera)| 52.5° | ![Distribution of point obliquenesses](assets/web_assets/obliquess.png)  |
-| **Points in view** (for point correspondences) | (median) 15 | ![Distribution of points in camera view](assets/web_assets/number_of_points_in_camera_view.png)  |
-
-
-## Citing
-
-If you find the code or the models useful, please cite this paper:
-```
-@inproceedings{zamir2018taskonomy,
-  title={Taskonomy: Disentangling Task Transfer Learning},
-  author={Zamir, Amir R and Sax, Alexander and and Shen, William B and Guibas, Leonidas and Malik, Jitendra and Savarese, Silvio},
-  booktitle={2018 IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2018},
-  organization={IEEE}
-}
-```
-
-### License
-
-The code and models are released under the MIT License (refer to the [LICENSE](https://github.com/StanfordVL/taskonomy/blob/master/LICENSE) file for details).
  
+## 所需环境
+
+```
+conda                     4.10.3
+keras                     2.6.0
+markdown                  3.3.4
+matplotlib                3.4.2
+numpy                     1.19.5
+python                    3.9.7
+tensorflow-gpu            2.6.0
+
+```
+
+
+
+### BaseLine网络
+
+BaseLine网络是我经过卷积神经网络基础知识学习之后搭建的最为基础的模型，将输入图像依次经过CBAPD五个层（即卷积层、批标准化层、激活层、池化层和舍弃层），随后用概率输出的基础网络。
+该网络结构简单，比较适合进行测试，因此我首先使用了这个网络模型，使用CIFAR10数据集进行了训练和测试。
+
+BaseLine的网络结构如下：
+```
+Model: "baseline"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              multiple                  456       
+_________________________________________________________________
+batch_normalization (BatchNo multiple                  24        
+_________________________________________________________________
+activation (Activation)      multiple                  0         
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) multiple                  0         
+_________________________________________________________________
+dropout (Dropout)            multiple                  0         
+_________________________________________________________________
+flatten (Flatten)            multiple                  0         
+_________________________________________________________________
+dense (Dense)                multiple                  196736    
+_________________________________________________________________
+dropout_1 (Dropout)          multiple                  0         
+_________________________________________________________________
+dense_1 (Dense)              multiple                  1290      
+=================================================================
+Total params: 198,506
+Trainable params: 198,494
+Non-trainable params: 12
+_________________________________________________________________
+``` 
+
+###BaseLine网络训练结果
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+## LeNet-5网络模型
+
+LeNet-5卷积神经网络模型
+LeNet-5：是Yann LeCun在1998年设计的用于手写数字识别的卷积神经网络，当年美国大多数银行就是用它来识别支票上面的手写数字的，它是早期卷积神经网络中最有代表性的实验系统之一。
+
+LenNet-5共有7层（不包括输入层），有2个卷积层、2个下抽样层（池化层）、3个全连接层3种连接方式,如下图所示。
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+### LeNet-5网络结构
+
+```
+Model: "le_net5"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              multiple                  456       
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) multiple                  0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            multiple                  2416      
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+flatten (Flatten)            multiple                  0         
+_________________________________________________________________
+dense (Dense)                multiple                  48120     
+_________________________________________________________________
+dense_1 (Dense)              multiple                  10164     
+_________________________________________________________________
+dense_2 (Dense)              multiple                  850       
+=================================================================
+Total params: 62,006
+Trainable params: 62,006
+Non-trainable params: 0
+_________________________________________________________________
+```
+
+###LeNet-5网络训练结果
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+
+###论文来源 
+
+LeCun, Yann, et al. “Gradient-based learning applied to document recognition.” Proceedings of the IEEE 86.11 (1998): 2278-2324.
+
+
+
+
+## AlexNet网络模型
+
+AlexNet是2012年ImageNet竞赛冠军获得者Hinton和他的学生Alex Krizhevsky设计的。也是在那年之后，更多的更深的神经网络被提出，比如优秀的vgg,GoogLeNet。 这对于传统的机器学习分类算法而言，已经相当的出色。
+AlexNet中包含了几个比较新的技术点，也首次在CNN中成功应用了ReLU、Dropout和LRN等Trick。同时AlexNet也使用了GPU进行运算加速。
+AlexNet将LeNet的思想发扬光大，把CNN的基本原理应用到了很深很宽的网络中。AlexNet主要使用到的新技术点如下：
+
+（1）成功使用ReLU作为CNN的激活函数，并验证其效果在较深的网络超过了Sigmoid，成功解决了Sigmoid在网络较深时的梯度弥散问题。虽然ReLU激活函数在很久之前就被提出了，但是直到AlexNet的出现才将其发扬光大。
+
+（2）训练时使用Dropout随机忽略一部分神经元，以避免模型过拟合。Dropout虽有单独的论文论述，但是AlexNet将其实用化，通过实践证实了它的效果。在AlexNet中主要是最后几个全连接层使用了Dropout。
+
+（3）在CNN中使用重叠的最大池化。此前CNN中普遍使用平均池化，AlexNet全部使用最大池化，避免平均池化的模糊化效果。并且AlexNet中提出让步长比池化核的尺寸小，这样池化层的输出之间会有重叠和覆盖，提升了特征的丰富性。
+
+（4）提出了LRN层，对局部神经元的活动创建竞争机制，使得其中响应比较大的值变得相对更大，并抑制其他反馈较小的神经元，增强了模型的泛化能力。
+
+（5）使用CUDA加速深度卷积网络的训练，利用GPU强大的并行计算能力，处理神经网络训练时大量的矩阵运算。AlexNet使用了两块GTX 580 GPU进行训练，单个GTX 580只有3GB显存，这限制了可训练的网络的最大规模。因此作者将AlexNet分布在两个GPU上，在每个GPU的显存中储存一半的神经元的参数。因为GPU之间通信方便，可以互相访问显存，而不需要通过主机内存，所以同时使用多块GPU也是非常高效的。同时，AlexNet的设计让GPU之间的通信只在网络的某些层进行，控制了通信的性能损耗。 
+
+（6）数据增强，随机地从256*256的原始图像中截取224*224大小的区域（以及水平翻转的镜像），相当于增加了2*(256-224)^2=2048倍的数据量。如果没有数据增强，仅靠原始的数据量，参数众多的CNN会陷入过拟合中，使用了数据增强后可以大大减轻过拟合，提升泛化能力。进行预测时，则是取图片的四个角加中间共5个位置，并进行左右翻转，一共获得10张图片，对他们进行预测并对10次结果求均值。同时，AlexNet论文中提到了会对图像的RGB数据进行PCA处理，并对主成分做一个标准差为0.1的高斯扰动，增加一些噪声，这个Trick可以让错误率再下降1%。
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+### AlexNet网络结构
+
+```
+Model: "alex_net8"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              multiple                  2688      
+_________________________________________________________________
+batch_normalization (BatchNo multiple                  384       
+_________________________________________________________________
+activation (Activation)      multiple                  0         
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) multiple                  0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            multiple                  221440    
+_________________________________________________________________
+batch_normalization_1 (Batch multiple                  1024      
+_________________________________________________________________
+activation_1 (Activation)    multiple                  0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            multiple                  885120    
+_________________________________________________________________
+conv2d_3 (Conv2D)            multiple                  1327488   
+_________________________________________________________________
+conv2d_4 (Conv2D)            multiple                  884992    
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+flatten (Flatten)            multiple                  0         
+_________________________________________________________________
+dense (Dense)                multiple                  2099200   
+_________________________________________________________________
+dropout (Dropout)            multiple                  0         
+_________________________________________________________________
+dense_1 (Dense)              multiple                  4196352   
+_________________________________________________________________
+dropout_1 (Dropout)          multiple                  0         
+_________________________________________________________________
+dense_2 (Dense)              multiple                  20490     
+=================================================================
+Total params: 9,639,178
+Trainable params: 9,638,474
+Non-trainable params: 704
+_________________________________________________________________
+```
+
+###AlexNet网络训练结果
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+###论文来源 
+
+Technicolor T , Related S , Technicolor T , et al. ImageNet Classification with Deep Convolutional Neural Networks.
+
+
+
+
+
+## VGGNet网络模型
+
+
+VGG的作者在论文中将它称为是Very Deep Convolutional Network，如上图所示的VGG16网络带权层就达到了16层，这在当时已经很深了。网络的前半部分，每隔2~3个卷积层接一个最大池化层，4次池化共经历了13个卷积层，加上最后3个全连接层共有16层，也正因此我们称这个网络为VGG16。
+
+VGG16不仅结构清晰，层参数也很简单。所有的卷积层都采用3x3的卷积核，步长为1；所有池化层都是2x2池化，步长为2。正因为此，我们看到图片尺寸变化规律，从224x224到112x112等，直到最后变成7x7。同时我们注意到特征图通道的数量也一直在加倍，从64到128最终变成512层。因此VGG16结构图画出来非常美观，实现起来也很规整。
+
+### VGGNet网络结构
+
+```
+Model: "vgg16"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              multiple                  1792      
+_________________________________________________________________
+batch_normalization (BatchNo multiple                  256       
+_________________________________________________________________
+activation (Activation)      multiple                  0         
+_________________________________________________________________
+conv2d_1 (Conv2D)            multiple                  36928     
+_________________________________________________________________
+batch_normalization_1 (Batch multiple                  256       
+_________________________________________________________________
+activation_1 (Activation)    multiple                  0         
+_________________________________________________________________
+max_pooling2d (MaxPooling2D) multiple                  0         
+_________________________________________________________________
+dropout (Dropout)            multiple                  0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            multiple                  73856     
+_________________________________________________________________
+batch_normalization_2 (Batch multiple                  512       
+_________________________________________________________________
+activation_2 (Activation)    multiple                  0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            multiple                  147584    
+_________________________________________________________________
+batch_normalization_3 (Batch multiple                  512       
+_________________________________________________________________
+activation_3 (Activation)    multiple                  0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+dropout_1 (Dropout)          multiple                  0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            multiple                  295168    
+_________________________________________________________________
+batch_normalization_4 (Batch multiple                  1024      
+_________________________________________________________________
+activation_4 (Activation)    multiple                  0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            multiple                  590080    
+_________________________________________________________________
+batch_normalization_5 (Batch multiple                  1024      
+_________________________________________________________________
+activation_5 (Activation)    multiple                  0         
+_________________________________________________________________
+conv2d_6 (Conv2D)            multiple                  590080    
+_________________________________________________________________
+batch_normalization_6 (Batch multiple                  1024      
+_________________________________________________________________
+activation_6 (Activation)    multiple                  0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+dropout_2 (Dropout)          multiple                  0         
+_________________________________________________________________
+conv2d_7 (Conv2D)            multiple                  1180160   
+_________________________________________________________________
+batch_normalization_7 (Batch multiple                  2048      
+_________________________________________________________________
+activation_7 (Activation)    multiple                  0         
+_________________________________________________________________
+conv2d_8 (Conv2D)            multiple                  2359808   
+_________________________________________________________________
+batch_normalization_8 (Batch multiple                  2048      
+_________________________________________________________________
+activation_8 (Activation)    multiple                  0         
+_________________________________________________________________
+conv2d_9 (Conv2D)            multiple                  2359808   
+_________________________________________________________________
+batch_normalization_9 (Batch multiple                  2048      
+_________________________________________________________________
+activation_9 (Activation)    multiple                  0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+dropout_3 (Dropout)          multiple                  0         
+_________________________________________________________________
+conv2d_10 (Conv2D)           multiple                  2359808   
+_________________________________________________________________
+batch_normalization_10 (Batc multiple                  2048      
+_________________________________________________________________
+activation_10 (Activation)   multiple                  0         
+_________________________________________________________________
+conv2d_11 (Conv2D)           multiple                  2359808   
+_________________________________________________________________
+batch_normalization_11 (Batc multiple                  2048      
+_________________________________________________________________
+activation_11 (Activation)   multiple                  0         
+_________________________________________________________________
+conv2d_12 (Conv2D)           multiple                  2359808   
+_________________________________________________________________
+batch_normalization_12 (Batc multiple                  2048      
+_________________________________________________________________
+activation_12 (Activation)   multiple                  0         
+_________________________________________________________________
+max_pooling2d_4 (MaxPooling2 multiple                  0         
+_________________________________________________________________
+dropout_4 (Dropout)          multiple                  0         
+_________________________________________________________________
+flatten (Flatten)            multiple                  0         
+_________________________________________________________________
+dense (Dense)                multiple                  262656    
+_________________________________________________________________
+dropout_5 (Dropout)          multiple                  0         
+_________________________________________________________________
+dense_1 (Dense)              multiple                  262656    
+_________________________________________________________________
+dropout_6 (Dropout)          multiple                  0         
+_________________________________________________________________
+dense_2 (Dense)              multiple                  5130      
+=================================================================
+Total params: 15,262,026
+Trainable params: 15,253,578
+Non-trainable params: 8,448
+_________________________________________________________________
+```
+
+###VGGNet网络训练结果
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+### 论文来源
+
+Simonyan K ,  Zisserman A . Very Deep Convolutional Networks for Large-Scale Image Recognition[J]. Computer Science, 2014.
+
+
+
+
+## ResNet网络模型
+
+ResNet(Residual Neural Network)网络作者想到了常规计算机视觉领域常用的residual representation的概念，并进一步将它应用在了CNN模型的构建当中，于是就有了基本的residual learning的block。它通过使用多个有参层来学习输入输出之间的残差表示，而非像一般CNN网络（如Alexnet/VGG等）那样使用有参层来直接尝试学习输入、输出之间的映射。实验表明使用一般意义上的有参层来直接学习残差比直接学习输入、输出间映射要容易得多（收敛速度更快），也有效得多（可通过使用更多的层来达到更高的分类精度）。
+
+ResNet的主要思想是在网络中增加了直连通道，即Highway Network的思想。此前的网络结构是性能输入做一个非线性变换，而Highway Network则允许保留之前网络层的一定比例的输出。ResNet的思想和Highway Network的思想也非常类似，允许原始输入信息直接传到后面的层中，如下图所示。
+
+
+
+### ResNet网络结构
+
+
+```
+Model: "res_net18"
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d (Conv2D)              multiple                  1728      
+_________________________________________________________________
+batch_normalization (BatchNo multiple                  256       
+_________________________________________________________________
+activation (Activation)      multiple                  0         
+_________________________________________________________________
+sequential (Sequential)      (None, 4, 4, 512)         11176448  
+_________________________________________________________________
+global_average_pooling2d (Gl multiple                  0         
+_________________________________________________________________
+dense (Dense)                multiple                  5130      
+=================================================================
+Total params: 11,183,562
+Trainable params: 11,173,962
+Non-trainable params: 9,600
+_________________________________________________________________
+
+
+```
+
+###ResNet网络训练结果
+
+![Image text](https://raw.githubusercontent.com/hongmaju/light7Local/master/img/productShow/20170518152848.png)
+
+
+### 论文来源
+
+He K , Zhang X , Ren S , et al. Deep Residual Learning for Image Recognition[J]. IEEE, 2016.
+
+
+
+
+## 实现过程
+
+在了解了各个经典的卷积神经网络模型后，接下来我使用Keras框架对其进行了实现。
+
+（1）使用tf.keras.datasets.cifar10函数直接读取cifar10数据集，并将其分割成x_train, y_train, x_test, y_test，分别表示训练集和测试集的图像与标签。
+
+（2）定义网络类，描述不同层的功能，包括卷积层，BN层，激活层等等。
+
+（3）使用model.compile函数定义训练的优化器，损失函数与metrics。
+
+（4）使用断点续训功能，检测并读取.ckpt文件。
+
+（5）使用model.fit函数进行训练。
+
+（6）使用model.summary函数输出模型结构。
+
+（7）输出权重至weight.txt文件。
+
+（8）绘制acc和loss曲线。
+
+
+##超参数研究
+
+在每个网络的实现过程中，用到了很多超参数，本文将以BaseLine网络为例，列举超参数的作用和调整后的效果。
+
+（1）optimizer ：用于选择训练的优化器，常见的有sgd、adagrad、adadelta、adam等，区别在于一阶动量和二阶动量的差别。
+
+（2）loss：损失函数的使用，一般有mse和sparse_categorical_crossentropy两种。其中，from_logits代表是否将输出转为概率分布的形式，为False时表示转换为概率分布，为True时表示不转换，直接输出。
+
+（3）Metrics：表示网络评价指标，常见的有accuracy、sparse_accuracy、sparse_categorical_accuracy，有的是用数值表示，有的是使用独热码表示。
+
+（4）batch_size：表示送入网络的数据尺寸，batch_size太大，深度学习的优化（training loss降不下去）和泛化（generalization gap很大）都会出问题。而batch_size太小，会来不及收敛。一般常见的batch_size约为32。
+
+（5）epochs：表示迭代次数，随着迭代次数的增加，网络模型会逐渐收敛。
+
+（6）validation_freq：表示在执行新的验证运行之前要运行多少个训练时期，如，validation_freq = 1时，每1个时期运行一次验证。一般默认为1.
+
+
+
+## 更新日志与作者
+
+该文更新为2021.10.9，作者：黄一骏 邮箱：oumanatsumi@126.com
 

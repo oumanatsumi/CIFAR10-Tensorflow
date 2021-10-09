@@ -5,16 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f2a0d53c-bbaf-49f9-80da-857bc422006f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/P31_cifar10_lenet5.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/p24_cifar10_datasets.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p27_cifar10_baseline.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p34_cifar10_alexnet8.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p36_cifar10_vgg16.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p40_cifar10_inception10.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/p46_cifar10_resnet18.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/alexnet8.py" beforeDir="false" afterPath="$PROJECT_DIR$/3_alexnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baseline.py" beforeDir="false" afterPath="$PROJECT_DIR$/1_baseline.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/Baseline.ckpt.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.data-00000-of-00001" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.data-00000-of-00001" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.index" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/LeNet5.ckpt.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checkpoint/checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/checkpoint/checkpoint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/CIFAR10.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/CIFAR10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inception10.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lenet5.py" beforeDir="false" afterPath="$PROJECT_DIR$/2_lenet5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resnet18.py" beforeDir="false" afterPath="$PROJECT_DIR$/5_resnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vgg16.py" beforeDir="false" afterPath="$PROJECT_DIR$/4_vggnet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weights.txt" beforeDir="false" afterPath="$PROJECT_DIR$/weights.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,9 +32,9 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="380">
-                <caret line="36" column="61" lean-forward="true" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+            <state split_layout="FIRST">
+              <first_editor relative-caret-position="330">
+                <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
               </first_editor>
               <second_editor />
             </state>
@@ -37,42 +42,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/alexnet8.py">
+        <entry file="file://$PROJECT_DIR$/1_baseline.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/inception10.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/vgg16.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-5017">
-              <folding>
-                <element signature="e#0#23#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/baseline.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="-320">
+              <caret line="62" column="113" selection-start-line="62" selection-start-column="98" selection-end-line="62" selection-end-column="113" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -88,11 +61,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/1_baseline.py" />
+        <option value="$PROJECT_DIR$/2_lenet5.py" />
+        <option value="$PROJECT_DIR$/5_resnet.py" />
+        <option value="$PROJECT_DIR$/4_vggnet.py" />
+        <option value="$PROJECT_DIR$/3_alexnet.py" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="560" />
@@ -104,6 +82,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -120,7 +99,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -139,8 +117,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.P31_cifar10_lenet5">
-    <configuration name="P31_cifar10_lenet5" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.5_resnet">
+    <configuration name="1_baseline" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CIFAR10-tensorflow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -152,7 +130,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/P31_cifar10_lenet5.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/1_baseline.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -161,7 +139,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="p24_cifar10_datasets" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="2_lenet5" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CIFAR10-tensorflow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -173,7 +151,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/p24_cifar10_datasets.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/2_lenet5.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -182,7 +160,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="p27_cifar10_baseline" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="3_alexnet" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="CIFAR10-tensorflow" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -194,7 +172,49 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/p27_cifar10_baseline.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/3_alexnet.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="4_vggnet" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CIFAR10-tensorflow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/4_vggnet.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="5_resnet" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="CIFAR10-tensorflow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/5_resnet.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -205,9 +225,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.P31_cifar10_lenet5" />
-        <item itemvalue="Python.p27_cifar10_baseline" />
-        <item itemvalue="Python.p24_cifar10_datasets" />
+        <item itemvalue="Python.5_resnet" />
+        <item itemvalue="Python.4_vggnet" />
+        <item itemvalue="Python.3_alexnet" />
+        <item itemvalue="Python.2_lenet5" />
+        <item itemvalue="Python.1_baseline" />
       </list>
     </recent_temporary>
   </component>
@@ -225,15 +247,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.141258" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14605543" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32924107" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33482143" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -249,95 +271,73 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/p24_cifar10_datasets.py">
+    <entry file="file://$PROJECT_DIR$/p24_cifar10_datasets.py" />
+    <entry file="file://$PROJECT_DIR$/P31_cifar10_lenet5.py" />
+    <entry file="file://$PROJECT_DIR$/p40_cifar10_inception10.py" />
+    <entry file="file://$PROJECT_DIR$/p36_cifar10_vgg16.py" />
+    <entry file="file://$PROJECT_DIR$/p46_cifar10_resnet18.py" />
+    <entry file="file://$PROJECT_DIR$/p27_cifar10_baseline.py" />
+    <entry file="file://$PROJECT_DIR$/inception10.py" />
+    <entry file="file://F:/大四/毕设/项目/testGPU/GAN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        <state relative-caret-position="180">
+          <caret line="6" column="11" lean-forward="true" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/baseline.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/images/lenet.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/5_resnet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="103" column="62" selection-start-line="103" selection-start-column="62" selection-end-line="103" selection-end-column="62" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/P31_cifar10_lenet5.py">
+    <entry file="file://$PROJECT_DIR$/images/CIFAR10.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/4_vggnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2370">
-          <caret line="91" lean-forward="true" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="195">
+          <caret line="157" column="62" selection-start-line="157" selection-start-column="62" selection-end-line="157" selection-end-column="62" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p40_cifar10_inception10.py">
+    <entry file="file://$PROJECT_DIR$/2_lenet5.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1920">
-          <caret line="20" column="10" lean-forward="true" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        <state relative-caret-position="204">
+          <caret line="61" column="62" selection-start-line="61" selection-start-column="62" selection-end-line="61" selection-end-column="62" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p36_cifar10_vgg16.py">
+    <entry file="file://$PROJECT_DIR$/3_alexnet.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5040">
-          <caret line="168" selection-start-line="168" selection-end-line="168" />
+        <state relative-caret-position="444">
+          <caret line="100" column="12" selection-start-line="100" selection-start-column="12" selection-end-line="100" selection-end-column="22" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/p46_cifar10_resnet18.py">
+    <entry file="file://$PROJECT_DIR$/1_baseline.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2587">
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/p27_cifar10_baseline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1673">
-          <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/baseline.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/inception10.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vgg16.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5017">
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/alexnet8.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-320">
+          <caret line="62" column="113" selection-start-line="62" selection-start-column="98" selection-end-line="62" selection-end-column="113" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -346,9 +346,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="380">
-            <caret line="36" column="61" lean-forward="true" selection-start-line="36" selection-start-column="61" selection-end-line="36" selection-end-column="61" />
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="330">
+            <caret line="41" column="32" lean-forward="true" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="32" />
           </first_editor>
           <second_editor />
         </state>
