@@ -19,8 +19,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="88">
-                <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+              <first_editor relative-caret-position="10560">
+                <caret line="478" column="3" selection-start-line="478" selection-start-column="3" selection-end-line="478" selection-end-column="3" />
               </first_editor>
               <second_editor />
             </state>
@@ -241,7 +241,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33482143" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33482143" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -333,8 +333,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="88">
-            <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+          <first_editor relative-caret-position="10560">
+            <caret line="478" column="3" selection-start-line="478" selection-start-column="3" selection-end-line="478" selection-end-column="3" />
           </first_editor>
           <second_editor />
         </state>
